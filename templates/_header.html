@@ -1,0 +1,11 @@
+{% load static %}
+
+<header
+    class="container max-w-full top-0 flex items-center justify-between px-4 h-16 bg-black border-b border-black fixed">
+    <a href="{% url "core:home" %}">
+        <img class="w-1/4" src="{% static 'img/logo.png' %}" />
+    </a>
+
+    {% include "_navbar.html" %}
+
+</header>

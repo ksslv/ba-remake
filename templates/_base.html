@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>{% block page_name %}{% endblock page_name %}</title>
+</head>
+
+<body class="mt-24 bg-gray-100">
+
+  <header>
+    {% include "_header.html" %}
+
+  </header>
+
+  {% block content %}
+  {% include "_header.html" %}
+  {% endblock %}
+
+  {% include "_footer.html" %}
+</body>
+
+</html>

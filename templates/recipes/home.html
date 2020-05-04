@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+
+
+{% block page_name %}
+Home
+{% endblock page_name %}
+
+
+{% block content %}
+<div class="container mx-auto">
+    <div class="flex">
+
+        {% for recipe in recipes.object_list %}
+
+        <div class="w-1/2 px-4">
+
+            <div>
+                <div class="w-full h-64 bg-cover bg-center" style="background-image: url({{recipe.cover_photo}});">
+                </div>
+            </div>
+
+            <div class=" flex text-lg font-bold text-center bg-white mb-3 h-24 items-center justify-center">
+                <a class="ml-6 no-underline hover:underline" href="{% url "recipes:detail" recipe.pk %}">
+                    {{recipe.title}}
+                </a>
+
+            </div>
+
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="text-center py-4">
+    {% if recipes.paginator.num_pages > 1 %}
+
+    {% if recipes.has_previous %}
+    <a href="?page={{recipes.previous_page_number}}"><i class="fa fa-angle-left px-1"></i></a>
+    {% endif %}
+
+    Page {{recipes.number}} of {{recipes.paginator.num_pages}}
+
+    {% if recipes.has_next %}
+    <a href="?page={{recipes.next_page_number}}"><i class="fa fa-angle-right px-1"></i></a>
+    {% endif %}
+
+    {% endif %}
+</div>
+
+{% endblock content %}
