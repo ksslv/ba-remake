@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-# User is the name of the model
+
 class User(AbstractUser):
     """ 
     Custom User model. 

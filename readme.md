@@ -42,6 +42,8 @@ Note: I haven't added many test yet.
 3. Enabling users to add recipes and leave reviews
 4. Error handling + error pages
 5. Improved home page
+6. Upgrade Djnago
+7. CSS/HTML best practices
 
 
 ### Other
