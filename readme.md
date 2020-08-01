@@ -8,14 +8,14 @@
 - Tailwind CSS 1.4
 
 
-### GIFs
-Coming soon.
+### Demo
+https://youtu.be/cDlhAxioP_w
 
 
 ### Usage
 To activate the project environment, navigate inside the project directory in Terminal and run `pipenv shell`. 
 
-Once in the project env, run `python manage.py runserver` from the project's folder to start the project locally. 
+Once in the project env, run `python manage.py runserver` from the project's directory to start the it locally. 
 
 ### Structure 
 This Django project has several apps: 
@@ -24,6 +24,8 @@ This Django project has several apps:
 - `reviews`
 - `lists` 
 - `core` 
+- `api`
+
 
 Additionally, it has: 
 - A `templates` folder for all HTML templates. 
@@ -37,16 +39,15 @@ Inside of your project environment, run `python manage.py test`.
 Note: I haven't added many test yet. 
 
 ### TODO
-1. User log in/log out + user authentication 
-2. User profile page
-3. Enabling users to add recipes and leave reviews
-4. Error handling + error pages
-5. Improved home page
-6. Upgrade Djnago
-7. CSS/HTML best practices
+1. Adding recipes functionality
+2. Error handling + error pages
+3. Edit profile functionality
+4. Improved home page
+5. Upgrade Djnago
+6. CSS/HTML best practices
 
 
 ### Other
 If you've somehow stumbled upon this repo while trying to learn Django, here are some resources that I've personally used to get started and can recommend: 
+- *Two Scoops of Django* by  D. and A. Feldroy
 - *Django for Professionals* by  William S. Vincent
-- More to be added soon

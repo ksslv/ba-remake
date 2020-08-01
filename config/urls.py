@@ -25,6 +25,8 @@ urlpatterns = [
     path("", include("core.urls", namespace="core")),
     path("users/", include("users.urls", namespace="users")),
     path("recipes/", include("recipes.urls", namespace="recipes")),
+    path("reviews/", include("reviews.urls", namespace="reviews")),
+    path("api/", include("api.urls")),
 ]
 
 # Keep media on disk only in dev, not in prod

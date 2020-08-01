@@ -6,7 +6,6 @@ from . import models
 class ListAdmin(admin.ModelAdmin):
     """
     All admin panel options and functionality for ListAdmin.
-    
     """
 
     list_display = ("title", "user", "count_recipes")

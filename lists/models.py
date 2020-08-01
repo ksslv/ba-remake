@@ -9,7 +9,6 @@ class List(core_models.TimeStampedModel):
     List model definition. 
     
     "Groups" together a bunch of recipes.
-    
     """
 
     title = models.CharField(max_length=80)
@@ -23,7 +22,6 @@ class List(core_models.TimeStampedModel):
 
     def count_recipes(self):
         # To be used and displayed on the admin panel.
-        # count() call performs a SELECT COUNT(*) behind the scenes
         return self.recipes.count()
 
     count_recipes.short_description = "Recipes in a list"

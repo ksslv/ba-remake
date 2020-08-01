@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.http import HttpResponse
 from django.db.models import Max
+from reviews import forms as review_forms
+from reviews import models as review_models
 from . import models
 
 
@@ -30,9 +32,28 @@ def recipe_detail(request, pk):
     Returns an HttpResponse.
     """
 
+    # Check for wheter current user has already reviewed a recipe
+    if request.user.is_authenticated:
+        has_reviewed = review_models.Review.objects.filter(
+            author=request.user, recipe=pk
+        ).exists()
+    else:
+        has_reviewed = False
+
+    # "Leave a review" form to be passed to context dict
+    review_form = review_forms.AddReviewForm()
+
     try:
         recipe = models.Recipe.objects.get(pk=pk)
-        return render(request, "recipes/detail.html", context={"recipe": recipe})
+        return render(
+            request,
+            "recipes/detail.html",
+            context={
+                "recipe": recipe,
+                "review_form": review_form,
+                "has_reviewed": has_reviewed,
+            },
+        )
     except models.Recipe.DoesNotExist:
         # TODO: create a separate custom 404 page and redirect there
         raise Http404("Recipe does not exist")

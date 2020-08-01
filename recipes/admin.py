@@ -6,7 +6,6 @@ from . import models
 class PhotoInline(admin.TabularInline):
     """
     Inline configuration for Django's admin on the Photo model.
-
     """
 
     model = models.Photo
@@ -16,7 +15,6 @@ class PhotoInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     """ 
     Admin panel options and functionality for the Recipe model.
-
     """
 
     # Automatically gathers all photos that have an FK to *this* Recipe instance
@@ -43,7 +41,6 @@ class RecipeAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     """ 
     Admin panel options and functionality for the Photos model.
-    
     """
 
     list_display = ("description", "recipe", "get_preview")

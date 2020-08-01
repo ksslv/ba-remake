@@ -8,7 +8,6 @@ class Recipe(core_models.TimeStampedModel):
     Recipe model deifnition.
 
     Includes avg_rating(), cover_photo() methods that are used in admin panel and/or views.
-    
     """
 
     title = models.CharField(max_length=140)
@@ -19,7 +18,6 @@ class Recipe(core_models.TimeStampedModel):
         "users.User", related_name="recipe", on_delete=models.CASCADE
     )
 
-    # TODO: finish tags
     # tags = models.ManyToManyField("Tag", related_name="recipe", blank=True)
 
     def __str__(self):
@@ -27,7 +25,6 @@ class Recipe(core_models.TimeStampedModel):
 
     def get_absolute_url(self):
         # To be used in URL reversals: reverse(viewname, urlconf=None, args=None, kwargs=None, current_app=None)
-        # Makes sure urls are dynamic
         return reverse("recipes:detail", kwargs={"pk": self.pk})
 
     def avg_rating(self):
@@ -43,13 +40,9 @@ class Recipe(core_models.TimeStampedModel):
             return None
 
     def cover_photo(self):
-        # TODO: remove slicing if I'm only keeping one photo per recipe
+        # TODO: remove slicing
         (photo,) = self.photos.all()[:1]
         return photo.file.url
-
-
-# class Tag(core_models.TimeStampedModel):
-#     pass
 
 
 class Photo(core_models.TimeStampedModel):
@@ -57,6 +50,8 @@ class Photo(core_models.TimeStampedModel):
     Photo model definition.
 
     Associate added photos to the particular instance of Recipe.
+
+    TODO: remove this, will not be used
     """
 
     description = models.CharField(max_length=140)

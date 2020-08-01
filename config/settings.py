@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "reviews.apps.ReviewsConfig",
     "lists.apps.ListsConfig",
+    "api.apps.ApiConfig",
     # Third-party apps
     "django_seed",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -125,8 +127,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # Custom user model
 AUTH_USER_MODEL = "users.User"
 
-# add this folder to gitignore
+# Add this folder to gitignore
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 # URL that handles the media served from MEDIA_ROOT
 MEDIA_URL = "/user_uploads/"
+
+# Set global REST framework permissions
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"]
+}

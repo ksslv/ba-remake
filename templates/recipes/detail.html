@@ -1,11 +1,14 @@
 {% extends "_base.html" %}
 
+
 {% block page_name %}
-Recipe Detail Page
+Recipe - {{recipe.title}}
 {% endblock page_name %}
+
 
 {% block content %}
 
+<!-- Recipe detail page - top part (author, title, cover photo) -->
 <div class="container mx-auto">
     <div class="flex m-auto w-24 h-8 justify-center items-center tracking-wide text-white font-medium text-sm bg-black">
         RECIPES
@@ -16,15 +19,17 @@ Recipe Detail Page
     <div class="flex mx-auto mt-4 mb-2 justify-center h-16 w-16 rounded-full bg-cover"
         style="background-image: url({{recipe.author.profile_photo.url}});">
     </div>
-    <div class="flex m-auto justify-center font-semibold text-sm">BY {{recipe.author.first_name|upper}}</div>
+    <div class="flex m-auto justify-center font-semibold text-sm">BY&nbsp;<a href="{{recipe.author.get_absolute_url}}"
+            class="no-underline hover:underline"> {{recipe.author.first_name|upper}}</a></div>
 </div>
 <div class="flex m-auto justify-center font-normal text-xs pt-2">{{recipe.created|date:"d M Y"}}</div>
 </div>
 
 <!-- Tagged as: {{recipe.tags}} -->
-
 <div class="w-full my-8 h-64 bg-cover bg-center" style="background-image: url({{recipe.cover_photo}});"></div>
 
+
+<!-- Recipe detail page - preparation info -->
 <div class="container w-3/5 m-auto">
 
     {{recipe.description}}
@@ -40,30 +45,62 @@ Recipe Detail Page
     {{recipe.recipe_prep|escape|linebreaks}}
 </div>
 
+<!-- Recipe detail page - add reviews form, display reviews -->
 <div class="container w-3/5 m-auto">
 
     <div class="border-t-2 border-black pt-2 mt-8 font-bold text-lg tracking-wider">
         REVIEWS
 
     </div>
-    <!-- <div class="mt-2 mb-2">RECIPE'S AVERAGE RATING: {{recipe.avg_rating}}</div> -->
 
+    <!-- Display the `Add reviews` form to authenticated users only who haven't already left a review for the recipe -->
+    {% if user.is_authenticated and has_reviewed == False %}
+    <div class="w-full my-10 mx-auto justify-center">
+        <form method="post" class="text-black" action="{% url 'reviews:add' recipe.pk %}">
+            <!-- {{ review_form.as_p }} -->
+            {% csrf_token %}
+            {% for field in review_form %}
+
+            {% if field == rating %}
+            Rate this recipe:
+            {% endif %}
+
+            <div class="w-full">{{ field }}</div>
+
+            {% endfor %}
+
+            <p><button
+                    class="w-40 h-12 my-3 bg-gray-900 font-light text-center text-white py-2 px-4 hover:opacity-75">ADD
+                    REVIEW</button>
+            </p>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- List all reviews for a recipe -->
+    <!-- <div class="mt-2 mb-2">RECIPE'S AVERAGE RATING: {{recipe.avg_rating}}</div> -->
     <div>
         {% for review in recipe.reviews.all %}
         <div class="mt-4 pb-4 flex border-black border-b">
             <div>
+
                 <div>
                     <i class="fa fa-star" style="font-size: 14px;"></i> {{review.rating}}
                 </div>
+
                 <p class="py-1">{{review.review_text}}</p>
+
                 <div class="text-sm pt-1">
-                    POSTED BY <span class="font-bold">{{review.author.username|upper}}</span> •
+                    POSTED BY <span class="font-bold"><a href="{{review.author.get_absolute_url}}"
+                            class="no-underline hover:underline"> {{review.author.username|upper}}</a></span> •
                     {{review.created|date:'m/d/y'}}
                 </div>
+
             </div>
 
         </div>
         {% endfor %}
+
     </div>
 </div>
 

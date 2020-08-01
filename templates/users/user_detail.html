@@ -1,0 +1,113 @@
+{% extends "_base.html" %}
+
+{% block page_title %}
+User Profile
+{% endblock page_title %}
+
+
+{% block content %}
+
+
+<div class="container mx-auto w-full flex justify-center text-black">
+
+    <!-- Left half - user profile details  -->
+    <div class="px-20 text-black border-r border-black">
+
+        {% if user_profile.profile_photo %}
+        <div class="flex mx-auto mt-4 mb-4 justify-center h-24 w-24 rounded-full bg-cover"
+            style="background-image: url({{user_profile.profile_photo.url}});">
+        </div>
+        {% endif %}
+
+        {% if user_profile.first_name and user_profile.last_name%}
+        <div class="flex m-auto justify-center font-medium text-lg">{{user_profile.first_name|upper}}
+            {{user_profile.last_name|upper}}
+        </div>
+        {% endif %}
+
+        <div class="flex m-auto justify-center font-normal text-sm">@{{user_profile.username}}
+        </div>
+
+        <div class="flex mx-auto my-2 justify-center font-semibold text-sm">
+            {% if user_profile.recipe_author %}
+            RECIPE AUTHOR
+            {% endif %}
+            <!-- TODO add chef level here -->
+        </div>
+
+        <div class="flex w-56 my-6 mx-auto justify-evenly">
+            "{{user_profile.bio}}"
+        </div>
+
+        {% if user == user_profile %}
+        <button class="w-full my-3 bg-gray-900 font-light text-center text-white py-2 px-4 hover:opacity-75">EDIT
+            PROFILE</button>
+        {% endif %}
+
+    </div>
+
+    <!-- Right half - list of users' recipes posted and reviews -->
+    <div class="px-20 w-2/3">
+        <!-- LIST ANY RECIPES AUTHORED BY USER -->
+        <div class="border-t-2 border-black font-bold text-lg tracking-wider">
+            POSTED RECIPES
+        </div>
+
+        {% if user_profile.recipe %}
+
+        {% for recipe in user_profile.recipe.all %}
+        <div class="mt-4 pb-4 flex border-black border-b">
+            <div>
+                <div class="flex mx-auto float-left h-12 w-12 bg-cover"
+                    style="background-image: url({{recipe.cover_photo}});">
+                </div>
+                <div class="ml-16 font-semibold text-sm"><a href="{% url "recipes:detail" recipe.pk %}"
+                        class="no-underline hover:underline">{{recipe.title|upper}}</a>
+                </div>
+                <div class="ml-16 text-xs pt-1">
+                    <i class="fa fa-star" style="font-size: 14px;"></i> {{recipe.avg_rating}} •
+                    {{recipe.created|date:'m/d/y'}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="pt-4 text-sm">
+            User has not posted any recipes yet.
+        </div>
+
+        {% endif %}
+
+        <!-- LIST ANY REVIEWS AUTHORED BY USER -->
+        <div class="mt-8 border-t-2 border-black font-bold text-lg tracking-wider">
+            POSTED REVIEWS
+        </div>
+
+        {% if user_profile.reviews %}
+        {% for review in user_profile.reviews.all %}
+        <div class="mt-4 pb-4 flex border-black border-b">
+            <div>
+                <div class="font-semibold text-sm">
+                    <a href="{% url "recipes:detail" review.recipe.pk %}"
+                        class="no-underline hover:underline">{{review.recipe.title|upper}}</a>
+                </div>
+                <p class="py-1 text-sm">{{review.review_text}}</p>
+                <div class="text-xs pt-1">
+                    <i class="fa fa-star" style="font-size: 14px;"></i> {{review.rating}} •
+                    {{review.created|date:'m/d/y'}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="pt-4 text-sm">
+            User has not posted any reviews yet.
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock content %}

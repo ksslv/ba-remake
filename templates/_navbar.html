@@ -1,14 +1,12 @@
-<!-- Placeholder for when login is enabled later on -->
+<!-- Note: user comes from django's cotext processor -->
 <ul class="flex text-sm text-white font-medium">
-    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="http://localhost:8000">Hey,
-            {{request.user|title}}</a>
-    </li>
-    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="http://localhost:8000">Log out</a></li>
-    <!-- <li class="ml-6 border-b border-black hover:border-gray-100"><a href="http://localhost:8000">Sign up</a></li> -->
+    {% if user.is_authenticated %}
+    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="{{user.get_absolute_url}}">Hey,
+            {{request.user|title}}</a></li>
+    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="{% url "users:logout" %}">Log out</a></li>
+    {% else %}
+
+    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="{% url "users:login" %}">Log in</a></li>
+    <li class="ml-6 border-b border-black hover:border-gray-100"><a href="{% url "users:register" %}">Register</a></li>
+    {% endif %}
 </ul>
-
-
-<!-- 
-# TODO:
-# if logged in: display 'Log out' and 'Hey, username'
-# if not logged in: display 'Log In' and -->

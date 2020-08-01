@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from core import models as core_models
 
-# Create your models here.
+
 class Review(core_models.TimeStampedModel):
     """
     Review model deifnition.
@@ -13,7 +13,6 @@ class Review(core_models.TimeStampedModel):
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
-    # ?
     date_posted = core_models.TimeStampedModel.created
     author = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
