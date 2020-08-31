@@ -1,13 +1,31 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView
 from . import forms, models
 
 
 class UserProfileView(DetailView):
+    """
+    A view to display user profile.
+    """
+
     model = models.User
     context_object_name = "user_profile"
+
+
+class UserProfileEditView(UpdateView):
+    """
+    A view that displays a form for editing a user profile,
+    displays any validation errors, and saves changes to the User object.
+    """
+
+    model = models.User
+    template_name = "users/edit_profile.html"
+    form_class = forms.EditProfileForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 def register(request):

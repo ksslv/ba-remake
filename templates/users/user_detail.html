@@ -38,10 +38,11 @@ User Profile
         <div class="flex w-56 my-6 mx-auto justify-evenly">
             "{{user_profile.bio}}"
         </div>
-
+        
         {% if user == user_profile %}
-        <button class="w-full my-3 bg-gray-900 font-light text-center text-white py-2 px-4 hover:opacity-75">EDIT
-            PROFILE</button>
+        <div class="container my-3 bg-gray-900 font-light text-center text-white py-2 px-4 hover:opacity-75">
+        <a href="{% url 'users:edit' %}">EDIT PROFILE</a>
+        </div>
         {% endif %}
 
     </div>

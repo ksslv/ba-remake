@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block page_name %}
+Edit {{user.username|upper}}'s Profile
+{% endblock page_name %}
+
+
+{% block content %}
+<div class="container mx-auto flex flex-col items-center text-lg font-normal">
+    <form method="POST" action="{% url "users:edit" %}">
+
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <span class="text-red-700 w-full font-medium text-xs">{{error}}</span>
+        {% endfor %}
+        {% endif %}
+
+        {% for field in form %}
+        <div class="my-3 py-2 px-2 border border-black p-6">
+            <div class="py-1 text-xs font-medium">{{field.label|upper}}</div>
+            {{field}}
+
+            {% if field.errors %}
+
+            {% for error in field.errors %}
+            <br><span class="text-red-700 font-medium text-xs">{{error}}</span></br>
+            {% endfor %}
+
+            {% endif %}
+        </div>
+        {% endfor %}
+        <!-- <input type="username" placeholder="USERNAME" class="my-3 py-2 px-4 w-full border border-black p-6">
+        <input type="password" placeholder="PASSWORD" class="my-3 py-2 px-4 w-full border border-black p-6"> -->
+        <button
+            class="w-full my-3 bg-gray-900 font-light text-center text-white py-2 px-4 hover:opacity-75">SAVE</button>
+
+        <!-- {% if messages %}
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        {% endif %} -->
+    </form>
+    Don't have an account? <a class="hover:underline" href="{% url "users:register" %}">Register
+        now!</a>
+</div>
+
+{% endblock content %}

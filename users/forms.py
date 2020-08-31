@@ -4,6 +4,31 @@ from django.contrib.auth.models import User
 from . import models
 
 
+class EditProfileForm(forms.ModelForm):
+    """
+    A form for users to update their profile information. 
+
+    """
+
+    class Meta:
+        model = models.User
+        fields = (
+            "first_name",
+            "last_name",
+            "username",
+            "bio",
+            # "chef_level",
+            # "profile_photo"
+        )
+        widgets = {
+            "first_name": forms.TextInput(attrs={"style": "width:360px"}),
+            "last_name": forms.TextInput(attrs={"style": "width:360px"}),
+            "username": forms.TextInput(attrs={"style": "width:360px"}),
+            "bio": forms.Textarea(attrs={"style": "width:360px"}),
+            # "chef_level": forms.Select(attrs={"style": "width:360px"}),
+        }
+
+
 class RegistrationForm(forms.ModelForm):
     """ 
     A form to register new users. 

@@ -36,7 +36,6 @@ You will also need to generate a secret key for the local copy of the project:
 ```
 # In Terminal, run from within the project folder:
 python -c 'from django.core.management.utils import get_random_secret_key; print(f"SECRET_KEY = \"{get_random_secret_key()}\"")' >> secret.py
-
 ```
 
 To start the Django project locally:
@@ -95,5 +94,5 @@ NOTE: I've added a limited number of unit tests so far, primarily in the `recipe
 
 If you've somehow stumbled upon this repo while trying to learn Django, here are some resources that I've personally used to get started and can recommend:
 
-- *Two Scoops of Django* by  D. and A. Feldroy
-- *Django for Professionals* by  William S. Vincent
+- _Two Scoops of Django_ by D. and A. Feldroy
+- _Django for Professionals_ by William S. Vincent
