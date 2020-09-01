@@ -41,7 +41,7 @@ python -c 'from django.core.management.utils import get_random_secret_key; print
 To start the Django project locally:
 
 ```
-Once in the project env and inside the project's directory, run:
+# Once in the project env and inside the project's directory, run:
 python manage.py runserver
 ```
 
@@ -87,7 +87,7 @@ NOTE: I've added a limited number of unit tests so far, primarily in the `recipe
 2. Error handling + error pages
 3. Edit profile functionality
 4. Improved home page / Switch `recipes` app from FBV to CBV
-5. Upgrade Djnago
+5. Upgrade Django
 6. CSS/HTML best practices
 
 ### Other

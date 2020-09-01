@@ -1,26 +1,28 @@
 {% extends "_base.html" %}
 
-{% block page_title %}
+{% block page_name %}
 User Registration Page
-{% endblock page_title %}
+{% endblock page_name %}
 
 
 {% block content %}
 
 <!-- Registration form -->
-<div class="container w-1/4 mx-auto flex-col text-lg font-normal">
+<div class="container mx-auto flex flex-col text-lg font-normal items-center">
         <form method="POST" action="{% url "users:register" %}">
-                <!-- {{form.as_p}} -->
+
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}
-                <span class="text-red-700 w-full font-medium text-xs">{{error}}</span>
+                        <span class="text-red-700 w-full font-medium text-xs">{{error}}</span>
                 {% endfor %}
                 {% endif %}
 
                 {% for field in form %}
                 <div class="my-3 py-2 px-2 border border-black p-6">
+                        <div class="py-1 text-xs font-medium">{{field.label|upper}}</div>
+
                         {{field}}
 
                         {% if field.errors %}

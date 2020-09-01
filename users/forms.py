@@ -6,8 +6,7 @@ from . import models
 
 class EditProfileForm(forms.ModelForm):
     """
-    A form for users to update their profile information. 
-
+    A form for users to update their profile information.
     """
 
     class Meta:
@@ -18,14 +17,26 @@ class EditProfileForm(forms.ModelForm):
             "username",
             "bio",
             # "chef_level",
-            # "profile_photo"
+            "profile_photo",
         )
+
         widgets = {
-            "first_name": forms.TextInput(attrs={"style": "width:360px"}),
-            "last_name": forms.TextInput(attrs={"style": "width:360px"}),
-            "username": forms.TextInput(attrs={"style": "width:360px"}),
-            "bio": forms.Textarea(attrs={"style": "width:360px"}),
-            # "chef_level": forms.Select(attrs={"style": "width:360px"}),
+            "first_name": forms.TextInput(
+                attrs={"style": "width:370px", "class": "px-1"}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"style": "width:370px", "class": "px-1"}
+            ),
+            "username": forms.TextInput(
+                attrs={"style": "width:370px", "class": "px-1"}
+            ),
+            "bio": forms.Textarea(attrs={"style": "width:370px", "class": "px-1"}),
+            # "chef_level": forms.Select(attrs={"style": "width:360px", "class": "px-1"}),
+            "profile_photo": forms.FileInput,
+        }
+
+        labels = {
+            "profile_photo": "Change Profile Photo",
         }
 
 
@@ -35,10 +46,11 @@ class RegistrationForm(forms.ModelForm):
     """
 
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "PASSWORD"})
+        widget=forms.PasswordInput(attrs={"style": "width:370px", "class": "px-1"})
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "CONFIRM PASSWORD"})
+        widget=forms.PasswordInput(attrs={"style": "width:370px", "class": "px-1"}),
+        label="Confirm Password",
     )
 
     class Meta:
@@ -46,8 +58,10 @@ class RegistrationForm(forms.ModelForm):
         fields = ("username", "email")
 
         widgets = {
-            "username": forms.TextInput(attrs={"placeholder": "USERNAME"}),
-            "email": forms.EmailInput(attrs={"placeholder": "EMAIL ADDRESS"}),
+            "username": forms.TextInput(
+                attrs={"style": "width:370px", "class": "px-1"}
+            ),
+            "email": forms.EmailInput(attrs={"style": "width:370px", "class": "px-1"}),
         }
 
     def clean_username(self):
@@ -82,10 +96,10 @@ class LoginForm(forms.Form):
     """
 
     username = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "USERNAME"})
+        widget=forms.TextInput(attrs={"style": "width:370px", "class": "px-1"})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "PASSWORD"})
+        widget=forms.PasswordInput(attrs={"style": "width:370px", "class": "px-1"})
     )
 
     def clean(self):
@@ -97,9 +111,6 @@ class LoginForm(forms.Form):
             if user.check_password(password):
                 return self.cleaned_data
             else:
-                self.add_error(
-                    "password", forms.ValidationError("Password is incorrect")
-                )
+                self.add_error("password", "Password is incorrect")
         except models.User.DoesNotExist:
             self.add_error("username", forms.ValidationError("User does not exist"))
-

@@ -67,12 +67,8 @@ def log_in(request):
             if user:
                 login(request, user)
                 return redirect("core:home")
-            else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-
-    form = forms.LoginForm()
+    else:
+        form = forms.LoginForm()
     return render(
         request=request, template_name="users/login.html", context={"form": form}
     )
