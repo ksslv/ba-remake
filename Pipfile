@@ -9,7 +9,7 @@ flake8 = "*"
 [packages]
 django = "==2.2.5"
 pillow = "*"
-djangorestframework = "==3.9.2"
+djangorestframework = "==3.11.2"
 graphviz = "*"
 django-extensions = "*"
 pygraphviz = "*"
